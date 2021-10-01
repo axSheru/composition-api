@@ -1,13 +1,13 @@
 <template>
-  <h2>Espere por favor...</h2>
-  <h2>Usuarios</h2>
-  <h5>Error en la carga...</h5>
+  <h2 v-if="isLoading">Espere por favor...</h2>
+  <h2 v-else>Usuarios</h2>
+  <h5 v-if="errorMessage">{{ errorMessage }}</h5>
 
-  <div>
+  <div v-if="users.length > 0">
       <ul>
-          <li>
-              <h4>Nombre de la persona</h4>
-              <h6>email@gmail.com</h6>
+          <li v-for="{ id, first_name, last_name, email } in users" :key="id">
+              <h4>{{ first_name }} {{ last_name }}</h4>
+              <h6>{{ email }}</h6>
           </li>
       </ul>
   </div>
@@ -28,7 +28,7 @@ export default {
         const users = ref([])
         const isLoading = ref(true)
         const currentPage = ref(1)
-        const errorMessage = ref(1)
+        const errorMessage = ref()
 
         const getUsers = async( page = 1 ) => {
 
@@ -47,10 +47,18 @@ export default {
                 errorMessage.value = 'No hay mas usuarios.'
             }
 
+            isLoading.value = false
+
         }
 
         getUsers()
 
+        return {
+            users,
+            isLoading,
+            currentPage,
+            errorMessage,
+        }
 
     }
 
