@@ -12,9 +12,9 @@
       </ul>
   </div>
 
-  <button>Atrás</button>
-  <button>Siguiente</button>
-  <span>Página: 5</span>
+  <button @click="prevPage">Atrás</button>
+  <button @click="nextPage">Siguiente</button>
+  <span>Página: {{ currentPage }}</span>
 </template>
 
 <script>
@@ -43,6 +43,7 @@ export default {
             if( data.data.length > 0 ) {
                 users.value = data.data
                 currentPage.value = page
+                errorMessage.value = null
             } else if( currentPage.value > 0 ) {
                 errorMessage.value = 'No hay mas usuarios.'
             }
@@ -54,10 +55,13 @@ export default {
         getUsers()
 
         return {
-            users,
-            isLoading,
             currentPage,
             errorMessage,
+            isLoading,
+            users,
+
+            nextPage: () => getUsers( currentPage.value + 1 ),
+            prevPage: () => getUsers( currentPage.value - 1 ),
         }
 
     }
