@@ -23,6 +23,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+h2 {
+    text-align: center;
+    width: 100%;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+ul {
+    width: 250px;
+}
 
 </style>
