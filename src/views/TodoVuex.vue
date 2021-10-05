@@ -19,7 +19,7 @@
 
   <div>
     <ul>
-      <li v-for="todo in all" :key="todo.id"
+      <li v-for="todo in getTodosByTab" :key="todo.id"
         :class="{ 'completed': todo.completed }"
       >
         {{ todo.text }}
@@ -51,6 +51,7 @@ export default {
       pending: computed( () => store.getters['pendingTodos'] ),
       all: computed( () => store.getters['allTodos'] ),
       completed: computed( () => store.getters['completedTodos'] ),
+      getTodosByTab: computed( () => store.getters['getTodosByTab'](currentTab.value) )
     }
 
   }
