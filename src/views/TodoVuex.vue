@@ -31,30 +31,19 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import { useStore } from 'vuex'
+import useTodos from '@/composables/useTodos'
 
 export default {
 
   setup() {
 
-    const store = useStore()
-
-    const currentTab = ref('all')
-
-    //NOTE
-    /* Se tiende a crear la propiedad computada directo en el return si solamente se utilizará en el template.
-    Se genera en el setup si la necesitamos manipular para otra función, atributo o propiedad. */
+    const { currentTab, getTodosByTab, pending, toggleTodo } = useTodos()
 
     return {
       currentTab,
-
-      all: computed( () => store.getters['allTodos'] ),
-      completed: computed( () => store.getters['completedTodos'] ),
-      getTodosByTab: computed( () => store.getters['getTodosByTab'](currentTab.value) ),
-      pending: computed( () => store.getters['pendingTodos'] ),
-
-      toggleTodo: ( id ) => store.commit('toggleTodo', id),
+      getTodosByTab,
+      pending,
+      toggleTodo,
     }
 
   }
