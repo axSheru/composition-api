@@ -21,6 +21,7 @@
     <ul>
       <li v-for="todo in getTodosByTab" :key="todo.id"
         :class="{ 'completed': todo.completed }"
+        @dblclick="toggleTodo(todo.id)"
       >
         {{ todo.text }}
       </li>
@@ -48,10 +49,12 @@ export default {
     return {
       currentTab,
 
-      pending: computed( () => store.getters['pendingTodos'] ),
       all: computed( () => store.getters['allTodos'] ),
       completed: computed( () => store.getters['completedTodos'] ),
-      getTodosByTab: computed( () => store.getters['getTodosByTab'](currentTab.value) )
+      getTodosByTab: computed( () => store.getters['getTodosByTab'](currentTab.value) ),
+      pending: computed( () => store.getters['pendingTodos'] ),
+
+      toggleTodo: ( id ) => store.commit('toggleTodo', id),
     }
 
   }
