@@ -4,9 +4,18 @@
   <h4>Pendientes:  {{ pending.length }} </h4>
 
   <hr>
-  <button class="active">Todos</button>
-  <button>Pendientes</button>
-  <button>Completados</button>
+  <button
+    :class="{ 'active': currentTab === 'all' }"
+    @click="currentTab = 'all'"
+  >Todos</button>
+  <button
+    :class="{ 'active': currentTab === 'pending' }"
+    @click="currentTab = 'pending'"
+  >Pendientes</button>
+  <button
+    :class="{ 'active': currentTab === 'completed' }"
+    @click="currentTab = 'completed'"
+  >Completados</button>
 
   <div>
     <ul>
@@ -21,7 +30,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -30,11 +39,15 @@ export default {
 
     const store = useStore()
 
+    const currentTab = ref('all')
+
     //NOTE
     /* Se tiende a crear la propiedad computada directo en el return si solamente se utilizará en el template.
     Se genera en el setup si la necesitamos manipular para otra función, atributo o propiedad. */
 
     return {
+      currentTab,
+
       pending: computed( () => store.getters['pendingTodos'] ),
       all: computed( () => store.getters['allTodos'] ),
       completed: computed( () => store.getters['completedTodos'] ),
