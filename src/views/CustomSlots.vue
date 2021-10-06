@@ -19,6 +19,10 @@
     <template v-slot:header>
       <h2>Título del modal</h2>
     </template>
+    
+    <template v-slot:exposed="{ newTitle }">
+      {{ newTitle }}
+    </template>
   </modal>
 </template>
 
