@@ -6,6 +6,8 @@
         <slot name="header"/>
         <slot name="body"/>
         <slot name="footer"/>
+        <br>
+        <slot name="exposed" :newTitle="newTitle"></slot>
 
           <!-- <slot /> -->
           
@@ -20,9 +22,15 @@
 <script>
 export default {
 
+  props: ['title'],
+
   emits: ['on:close'],
 
   setup( props, context ) {
+
+    return {
+      newTitle: props.title?.toUpperCase()
+    }
 
   }
 
