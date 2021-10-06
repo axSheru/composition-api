@@ -7,8 +7,17 @@ const useTodos = () => {
 
     const currentTab = ref('all')
 
+    const isOpen = ref(false)
+
+    const newTodoText = ref('')
+
     return {
         currentTab,
+        isOpen,
+        newTodoText,
+
+        openModal: () => isOpen.value = true,
+        closeModal: () => isOpen.value = false,
   
         all: computed( () => store.getters['allTodos'] ),
         completed: computed( () => store.getters['completedTodos'] ),
@@ -16,6 +25,7 @@ const useTodos = () => {
         pending: computed( () => store.getters['pendingTodos'] ),
   
         toggleTodo: ( id ) => store.commit('toggleTodo', id),
+        createTodo: ( text ) => store.commit('createTodo', text),
     }
 
 }
